@@ -1,32 +1,17 @@
+/* Import font family */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap');
+body{
+  background-color: #F5F5F5;
+}
+
 /* header style start  */
 .header-main{
   border-bottom: 2px solid #731054;
-  background: #FFFFFF;
-  box-sizing: border-box;
 }
 
-.header-info{
-  display: flex;
-  align-items: center;
-  justify-content: start;
-}
-.header-info img{
+.logo{
   width: 56px;
   height: 32px;
-  margin-top: 24px;
-  margin-bottom: 24px;
-  margin-left: 96px;
-}
-@media only screen and (max-width: 688px) {
-  .header-info{
-      display: flex;
-      align-items: center;
-      justify-content: center;
-  }
-  .header-info img{
-  
-      margin-left: 0px;
-  }
 }
 /* header style end */
 
@@ -38,110 +23,55 @@
   font-family: 'Poppins';
   line-height: 24px;
 }
+.montserrat{
+  font-family: 'Montserrat';
+}
 .modal-sub-title{
   font-family: 'Montserrat';
   color: #666666;
 }
-.modal-select{
-  
-}
-
-
 
 .modal-main{
   background: rgba(0, 0, 0, 0.15);
 }
 
-
-.modal-select{
+.field-color{
   background: #F2F2F2;
 }
 
 
 
-
 .modal-button{
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 16px;
-  color: white;
   width: 147px;
   height: 40px;   
-  font-weight: 700;
-
   background: linear-gradient(295.67deg, #DE0D6F 16.23%, #731054 83.77%);
-  border-radius: 8px;
-  margin-top: 80px;
 }
-@media only screen and (max-width: 688px) {
-  .not-progess{        
-      width: 350px !important;
-      height: 48px !important;
-      /* margin-left: 443px !important; */
-      
-  }
-  .delete-btn{
-      display: none;
-  }
-  .table-main{
-  width: 350px !important;
-  height: 40px !important;
-  margin-top: 16px !important;
-  /* margin-left: 221px !important; */
-}
-  
-  
 
 
-}
-.not-progess{
-  
+.note-progess{
   box-sizing: border-box;
-  
-  width: 1248px;
-  height: 48px;
   background: #FFFFFF;
   border: 1px solid #E5E5E5;
   border-radius: 16px;
 }
-
-.not-progess h2{
-  padding: 10px;
-  /* width: 178px;
-  height: 24px; */
-  font-style: normal;
-  font-weight: 500;
-  font-size: 20px;
-  line-height: 24px;        
-  color: #000000;
-  margin-left: 35px;
+.note-progess div div{
+  background-color: #DE0D6F;
 }
-.not-progess h2 span{
-
-  padding: 4px 11px;
-  
-  width: 32px;
-  height: 32px;
-  color: white;
-  
-  background: #DE0D6F;
-  border-radius: 250px;
+.note-progess h2{
+  font-family: 'Montserrat', sans-serif;
 }
+
 .table-main{
-  width: 1248px;
-  height: 48px;
-  margin-top: 16px;
+  font-family: 'Montserrat', sans-serif;
+  border-collapse: separate; 
+  border-spacing: 0px 5px;
 }
 .tabel-row{
- 
-  width: 1248px;
-  height: 48px;    
-  background: #FFFFFF;
   box-shadow: 4px 4px 16px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  text-align: center;
+  background: #FFFFFF;
 }
 
 /* uploader styles end  */

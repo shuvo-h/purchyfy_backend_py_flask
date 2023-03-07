@@ -1,6 +1,6 @@
 # Fake Upload System with Progress Bar
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project was done to test file uploader with progressbar [Fake File Uploader](https://fake-uploader.netlify.app/).
 
 ## Available Scripts
 
