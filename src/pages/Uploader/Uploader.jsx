@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import UploadModal from './UploadModal';
 
 const notes = [
-  { value: "progress_note", label: "Progress note - 80 left" },
-  { value: "soap_note", label: "Soap note - 80 left" },
-  { value: "emdr_note", label: "EMDR note - 80 left" },
-  { value: "therapy_note", label: "Couples therapy note - 80 left" },
-  { value: "family_note", label: "Family therapy note - 80 left" },
+  { value: "Progress note", label: "Progress note - 80 left" },
+  { value: "Soap note", label: "Soap note - 80 left" },
+  { value: "EMDR note", label: "EMDR note - 80 left" },
+  { value: "Couples therapy", label: "Couples therapy note - 80 left" },
+  { value: "Family therapy", label: "Family therapy note - 80 left" },
 ];
 
 
@@ -103,62 +103,57 @@ const Uploader = () => {
                 </div>
               </div>
 
-      {showUploaderModal && <UploadModal notes={notes} handleSubmit={handleSubmit} handleChange={handleChange} setShowUploaderModal={setShowUploaderModal} />}
+              {showUploaderModal && <UploadModal notes={notes} handleSubmit={handleSubmit} handleChange={handleChange} setShowUploaderModal={setShowUploaderModal} />}
 
-      {uploadedFiles.length > 0 && (
-        <div className="mt-[200px] md:mt-[116px]">
-          <div>
-            <div className="note-progess h-10 md:h-12 flex items-center">
-              <div className='flex items-center'>
-                <div className='rounded-full ml-[35px] w-8 h-8 flex justify-center items-center'>{progressBars.length}</div>
+            {uploadedFiles.length > 0 && (
+              <div className="mt-[200px] md:mt-[116px]">
+                <div>
+                  <div className="note-progess h-10 md:h-12 flex items-center">
+                    <div className='flex items-center'>
+                      <div className='rounded-full ml-[35px] w-8 h-8 flex justify-center items-center'>{progressBars.length}</div>
+                    </div>
+                    <h2 className='ml-6 md:ml-2 text-[20px] text-black font-medium'>Notes in progress</h2>
+                  </div>
+                  <div className=" mt-4">
+                    <table className="table-main w-full text-left text-black">
+                      <thead>
+                        <tr>
+                          <th>Client</th>
+                          <th className="hidden md:block">Type</th>
+                          <th>ETA</th>
+                        </tr>
+                      </thead>
+                      <tbody className='mt-8'>
+                      {uploadedFiles.map((file) => (
+                        <tr className="tabel-row rounded-lg  my-[5px]">
+                          <td className='pl-10 py-3 text-base font-normal w-52 md:w-fit'>{file.name}</td>
+                          <td className="hidden md:block py-3">{file.noteType}</td>
+                          <td className='pr-2 md:pr-0'>
+                            <div className="flex-1">
+                              <div className="h-6 bg-gray-300 rounded-full overflow-hidden">
+                                <div
+                                  className={`h-6 bg-green-500 rounded-full`}
+                                  style={{width: `${progressBars?.find((bar) => bar.id === file.id)?.progress}%`,}}
+                                ></div>
+                              </div>
+                            </div>
+                          </td>
+                          <td className='rounded-r-lg w-40 hidden md:table-cell'>
+                            <div className='flex justify-end mr-12'>
+                              <button className=" hover:text-red-700" onClick={()=>handleDelete(file.id)}>
+                                <img src={"/images/delete.png"} width="24px" alt="" />
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                          ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
               </div>
-              <h2 className='ml-6 md:ml-2 text-[20px] text-black font-medium'>Notes in progress</h2>
-            </div>
-            {/* <ul> */}
-              <div className=" mt-4">
-                <table className="table-main w-full text-left text-black">
-                  <thead>
-                    <tr>
-                      <th>Client</th>
-                      <th className="hidden md:block">Type</th>
-                      <th>ETA</th>
-                    </tr>
-                  </thead>
-
-                  <tbody className='mt-8'>
-                  {uploadedFiles.map((file) => (
-                    <tr className="tabel-row rounded-lg  my-[5px]">
-                      <td className='pl-10 py-3 text-base font-normal w-52 md:w-fit'>{file.name}</td>
-                      <td className="hidden md:block py-3">{file.noteType}</td>
-                      <td className='pr-2 md:pr-0'>
-                        <div className="flex-1">
-                          <div className="h-6 bg-gray-300 rounded-full overflow-hidden">
-                            <div
-                              // className={`h-6 bg-green-500 rounded-full ${progressBars.find((bar) => bar.id === file.id)?.progress === null && "w-full"}`}
-                              className={`h-6 bg-green-500 rounded-full`}
-                              style={{width: `${progressBars?.find((bar) => bar.id === file.id)?.progress}%`,}}
-                            ></div>
-                          </div>
-                        </div>
-                      </td>
-                      <td className='rounded-r-lg w-40 hidden md:table-cell'>
-                        <div className='flex justify-end mr-12'>
-                          <button className=" hover:text-red-700" onClick={()=>handleDelete(file.id)}>
-                            <img src={"/images/delete.png"} width="24px" alt="" />
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                       ))}
-                  </tbody>
-                </table>
-              </div>
-              
-            {/* </ul> */}
+            )}
           </div>
-        </div>
-      )}
-    </div>
         </>
         
     );
