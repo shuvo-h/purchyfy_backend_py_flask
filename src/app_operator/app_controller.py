@@ -13,7 +13,7 @@ def create_combined_app():
     # configure app to add all secret from env
     app_config.configure_cors(app)
 
-    # Call middleware configuration functions
+    # Call decorators configuration functions
     # configure_logging(app)
     # configure_csrf(app)
     # configure_xss(app)

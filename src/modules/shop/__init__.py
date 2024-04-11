@@ -1,0 +1,1 @@
+from .v1.shop_routes import marchant_bp as marchat_bp_v1

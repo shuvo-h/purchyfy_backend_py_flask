@@ -1,6 +1,6 @@
 from flask import Blueprint,jsonify, request
 from . import auth_controller
-from src.middlewares.bodyValidator import validate_body
+from src.decorators.bodyValidator import validate_body
 from . import auth_validator
 
 

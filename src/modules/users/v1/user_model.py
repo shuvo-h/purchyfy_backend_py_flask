@@ -1,19 +1,22 @@
 from src.config.db_config import db
 from werkzeug.security import generate_password_hash,check_password_hash
-from enum import Enum
-from flask_migrate import Migrate
+from sqlalchemy.orm import relationship
 
 class UserRole:
     ADMIN = 'admin'
     USER = 'user'
 
 
-class User(db.Model):
+class UserModel(db.Model):
+    __tablename__ = 'users'
     id = db.Column(db.Integer,primary_key=True)
     email = db.Column(db.String(100),unique=True,nullable=False)
     role = db.Column(db.Enum(UserRole.USER, UserRole.ADMIN,name='user_role_enum'), nullable=False, default=UserRole.USER,)
     name= db.Column(db.String(100),nullable=True)
     password = db.Column(db.String(255), nullable=False)
+
+    # relationship 
+    shopList = relationship("ShopModel",back_populates="owner")   # one to many relation
 
     def __init__(self,email,password,name,role):
         self.email = email
@@ -36,7 +39,7 @@ class User(db.Model):
             'id': self.id,
             'email': self.email,
             'password': self.password,
-            'role': self.role,
+            'role': self.role.value,
             'name': self.name,
         }
     
