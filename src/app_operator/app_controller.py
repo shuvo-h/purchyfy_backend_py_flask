@@ -1,4 +1,5 @@
 from flask import Flask, jsonify
+from src.blueprints import bp_manager
 from src.config import db_config, app_config
 from src.errorHandlers import databaseErrorHandler,appErrorhandler
 from src.errorHandlers.appErrorhandler import AppError
@@ -24,7 +25,7 @@ def create_combined_app():
     db_config.connectDb(app)
     
     # register all blueprints
-    # bp_manager.register_blueprints(app)
+    bp_manager.register_blueprints(app)
 
      # handle custom error page
     # handle invalid url
@@ -47,7 +48,7 @@ def create_combined_app():
     
     @app.errorhandler(AppError)
     def handle_app_error(error):
-        response = sendRes(error.status_code, message=str(error), isSuccess=False)
+        response = sendRes(error.status_code, message=str(error), isSuccess=False,errors=error.errors)
         return response
 
     

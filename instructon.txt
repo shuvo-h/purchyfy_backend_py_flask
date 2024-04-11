@@ -1,1 +1,12 @@
 replicate the shop app from peasy using flask and vue3
+
+
+Database Migration:
+    >> pip install Flask-Migrate
+        - migrate = Migrate(app, db)                // keep the migration engine in migrate variable in a global place
+Each time the database models change, repeat the migrate and upgrade commands
+    >> flask db init  						                // create a migration directory
+    >> flask db migrate -m "name of migration message"		// generate migration script with the latest schema
+    >> flask db upgrade					                    // apply migration script to database
+    >> DELETE FROM alembic_version;                         // if you want to delete previous migration history
+

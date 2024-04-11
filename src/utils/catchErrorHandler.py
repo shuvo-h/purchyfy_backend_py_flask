@@ -5,7 +5,7 @@ def catch_err_handler(fn):
     @wraps(fn)
     def wrapper(*args,**kwargs):
         try:
-            pass
+            return fn(*args,**kwargs)
         except Exception as e:
             # Log or print the exception and its traceback
             print(str(e))
