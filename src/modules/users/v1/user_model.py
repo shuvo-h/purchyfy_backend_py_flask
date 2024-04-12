@@ -1,6 +1,7 @@
 from src.config.db_config import db
 from werkzeug.security import generate_password_hash,check_password_hash
 from sqlalchemy.orm import relationship
+from datetime import datetime
 
 class UserRole:
     ADMIN = 'admin'
@@ -14,6 +15,9 @@ class UserModel(db.Model):
     role = db.Column(db.Enum(UserRole.USER, UserRole.ADMIN,name='user_role_enum'), nullable=False, default=UserRole.USER,)
     name= db.Column(db.String(100),nullable=True)
     password = db.Column(db.String(255), nullable=False)
+    createdAt = db.Column(db.DateTime, default=datetime.utcnow)
+    updatedAt = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
 
     # relationship 
     shopList = relationship("ShopModel",back_populates="owner")   # one to many relation

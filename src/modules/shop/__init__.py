@@ -1,1 +1,1 @@
-from .v1.shop_routes import marchant_bp as marchat_bp_v1
+from .v1.shop_routes import shop_bp as shop_bp_v1

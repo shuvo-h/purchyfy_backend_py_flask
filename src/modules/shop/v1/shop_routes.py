@@ -5,12 +5,12 @@ from flask import request
 from src.decorators.bodyValidator import validate_body
 from . import shop_validator
 
-marchant_bp = Blueprint('marchant_v1',__name__)
+shop_bp = Blueprint('marchant_v1',__name__)
 
-# create marchant 
-@marchant_bp.post("/")
-@authCheck(['admin', 'user'])  # decorator methods
+# create shop 
+@shop_bp.post("/")
 @validate_body(shop_validator.ShopCreateValidationSchema())
+@authCheck(['admin', 'user'])  # decorator methods
 def createMarchant(parsedBody):
     return shop_controller.create_shop(request.user['id'],parsedBody)
 

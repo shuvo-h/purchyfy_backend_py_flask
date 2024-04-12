@@ -1,5 +1,6 @@
 from src.config.db_config import db
 from sqlalchemy.orm import relationship
+from datetime import datetime
 
 
 
@@ -29,9 +30,13 @@ class ShopModel(db.Model):
 
     shop_name =  db.Column( db.String(100),nullable=False)
     address =  db.Column(db.JSON,nullable=False)
+    createdAt = db.Column(db.DateTime, default=datetime.utcnow)
+    updatedAt = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
 
     # relationship (one to many)
     owner = relationship('UserModel',back_populates='shopList') # one to many relation
+    categoryList = relationship("CategoryModel", back_populates="shop")
 
     def __init__(self,user_id,shop_name,address):
         self.user_id = user_id
@@ -47,6 +52,8 @@ class ShopModel(db.Model):
             "name": self.owner.name,
             # "role": self.owner.role
         } if self.owner else None
+
+        categories = [category.to_dict() for category in self.categoryList]
          
         return {
             "id": self.id,
@@ -63,7 +70,8 @@ class ShopModel(db.Model):
                     "lang": self.address.get('location', {}).get('lang')
                 }
             },
-            "owner": owner
+            "owner": owner,
+            "categoryList": categories
         }
 
      # class methods 
