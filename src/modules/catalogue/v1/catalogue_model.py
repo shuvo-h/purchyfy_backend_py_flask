@@ -21,7 +21,7 @@ class CatalogueModel(db.Model):
     price = db.Column(db.Integer,CheckConstraint('price >= 0'))
     inventory = db.Column(db.Integer,CheckConstraint('inventory >= 0'))
 
-    category = relationship('CategoryModel', back_populates="catelogueList")
+    category = relationship('CategoryModel', back_populates="catelogueList",foreign_keys=[category_id])
 
     createdAt = db.Column(db.DateTime, default=datetime.utcnow)
     updatedAt = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)

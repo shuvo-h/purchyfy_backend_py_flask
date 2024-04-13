@@ -12,8 +12,8 @@ class CategoryModel(db.Model):
     __tablename__ = "categories"
     id = db.Column(db.Integer, primary_key=True)
     shop_id = db.Column(db.Integer, db.ForeignKey('shops.id'), nullable=False)
-    shop = relationship("ShopModel",back_populates="categoryList")
-    catelogueList = relationship("CatalogueModel", back_populates="category")
+    shop = relationship("ShopModel",back_populates="categoryList",foreign_keys=[shop_id])
+    catelogueList = relationship("CatalogueModel", back_populates="category",)
 
     title = db.Column(db.String(255),nullable=False)
 

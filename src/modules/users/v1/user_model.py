@@ -20,7 +20,8 @@ class UserModel(db.Model):
 
 
     # relationship 
-    shopList = relationship("ShopModel",back_populates="owner")   # one to many relation
+    
+    shopList = relationship("ShopModel",back_populates="owner",foreign_keys="[ShopModel.user_id]")   # one to many relation
 
     def __init__(self,email,password,name,role):
         self.email = email

@@ -27,7 +27,7 @@ def create_order(payload):
                 ContactModel.add_only(contactInfo)
                 
             # check if this contact already has an active order for this shop
-            existPendingOrder = OrderModel.query.filter_by(status=status,contact_id=contactInfo.id).first()
+            existPendingOrder = OrderModel.query.filter_by(status=status,contact_id=contactInfo.id,shop_id=shop_id).first()
             
             if existPendingOrder:
                 raise AppError(422,"Order already exist")

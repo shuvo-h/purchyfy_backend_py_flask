@@ -35,7 +35,7 @@ class ShopModel(db.Model):
 
 
     # relationship (one to many)
-    owner = relationship('UserModel',back_populates='shopList') # one to many relation
+    owner = relationship('UserModel',back_populates='shopList',foreign_keys=[user_id]) # one to many relation
     categoryList = relationship("CategoryModel", back_populates="shop")
 
     def __init__(self,user_id,shop_name,address):

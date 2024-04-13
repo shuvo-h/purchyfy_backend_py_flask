@@ -25,6 +25,15 @@ def getOrdersByShop_id(shop_id):
     paginationInfo = db_helpers.pickToDict(request.args,["page","per_page","sort_order","sort_by"])
     return shop_controller.getOrdersByShopId(shop_id,filters,paginationInfo)
 
+# get orders by shop_id 
+@shop_bp.get("/<int:shop_id>/categories")
+@authCheck(['admin', 'user'])  # decorator methods
+def getCategoriesByShop_id(shop_id):
+    # print(request.args)
+    filters = db_helpers.pickToDict(request.args,[])
+    paginationInfo = db_helpers.pickToDict(request.args,["page","per_page","sort_order","sort_by"])
+    return shop_controller.getCategoriesByShopId(shop_id,filters,paginationInfo)
+
 
 
 

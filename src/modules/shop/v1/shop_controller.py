@@ -2,6 +2,7 @@ from src.utils import catchErrorHandler
 from src.utils.sendResFormater import sendRes
 from .shop_model import ShopModel
 from src.modules.order.v1.order_model import OrderModel,ORDER_STATUS
+from src.modules.category.v1.category_model import CategoryModel
 from sqlalchemy import desc
 from src.utils import db_helpers
 
@@ -39,14 +40,23 @@ def getOrdersByShopId(shop_id,filters,pageQuery):
     
     orders = [item.to_dict() for item in pagination.items]
     
-    meta = {
-        'total_count': pagination.total,
-        'total_pages': pagination.pages,
-        'current_page': pagination.page,  # Include the current page number
-        'per_page': pagination.per_page,
-        'has_prev': pagination.has_prev,
-        'has_next': pagination.has_next,
-        'sort_by': sort_by,
-        'sort_order': sort_order
-    }
+    meta = db_helpers.to_meta_dict(pagination,sort_order, sort_by)
     return sendRes(200, data=orders,message="Orders retrived successful!", meta=meta)
+
+
+
+# get order list by shopid 
+def getCategoriesByShopId(shop_id,filters,pageQuery):
+    page, per_page, count, sort_order, sort_by = db_helpers.getPaginationTupple(pageQuery)
+    query = CategoryModel.query.filter_by(shop_id=shop_id, **filters)
+
+    # Apply sorting dynamically
+    # query = query.order_by(getattr(CategoryModel, sort_by).asc())
+    query = query.order_by(getattr(getattr(CategoryModel, sort_by), sort_order)())
+
+    pagination = query.paginate(page=page,per_page=per_page,count=count, error_out=False)
+    
+    orders = [item.to_dict() for item in pagination.items]
+    
+    meta = db_helpers.to_meta_dict(pagination,sort_order, sort_by)
+    return sendRes(200, data=orders,message="Categories retrived successful!", meta=meta)

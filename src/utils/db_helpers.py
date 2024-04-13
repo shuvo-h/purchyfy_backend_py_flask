@@ -14,3 +14,15 @@ def getPaginationTupple(pageQuery):
     sort_order = pageQuery.get('sort_order') or "desc"
     sort_by =  pageQuery.get('sort_by') or "createdAt"
     return page, per_page, count, sort_order, sort_by # return tupple
+
+def to_meta_dict(paginationQuery,sort_order=None,sort_by=None):
+    return {
+        'total_count': paginationQuery.total,
+        'total_pages': paginationQuery.pages,
+        'current_page': paginationQuery.page, 
+        'per_page': paginationQuery.per_page,
+        'has_prev': paginationQuery.has_prev,
+        'has_next': paginationQuery.has_next,
+        'sort_by': sort_by,
+        'sort_order': sort_order
+    }

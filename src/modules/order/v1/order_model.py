@@ -33,6 +33,9 @@ class OrderModel(db.Model,BaseMixin):
     createdAt = db.Column(db.DateTime, default=datetime.utcnow)
     updatedAt = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
+    # Define relationship to ContactModel
+    contact = relationship("ContactModel", foreign_keys=[contact_id])
+
 
     def __init__(self, contact_id, shop_id, total_price, order_items,status):
         self.contact_id = contact_id
@@ -56,8 +59,8 @@ class OrderModel(db.Model,BaseMixin):
         }
 
         # If the related objects are available, include their attributes in the dictionary
-        # if self.contact:
-        #     order_dict['contact'] = self.contact.to_dict()
+        if self.contact:
+            order_dict['contact'] = self.contact.to_dict()
         
         # if self.shop:
         #     order_dict['shop'] = self.shop.to_dict()

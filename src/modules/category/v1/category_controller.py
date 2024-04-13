@@ -10,7 +10,7 @@ def create_category(payload):
     title = payload.get('title')
 
     # title is not exist
-    existingTitle = CategoryModel.query.filter_by(title=title).first()
+    existingTitle = CategoryModel.query.filter_by(title=title,shop_id=shop_id).first()
     if existingTitle:
         raise AppError(422,"Title already exist")
 
