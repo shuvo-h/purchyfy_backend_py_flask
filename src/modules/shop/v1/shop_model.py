@@ -70,6 +70,8 @@ class ShopModel(db.Model):
                     "lang": self.address.get('location', {}).get('lang')
                 }
             },
+            'createdAt': self.createdAt,
+            'updatedAt': self.updatedAt,
             "owner": owner,
             "categoryList": categories
         }

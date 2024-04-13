@@ -45,6 +45,8 @@ class UserModel(db.Model):
             'password': self.password,
             'role': self.role.value,
             'name': self.name,
+            'createdAt': self.createdAt,
+            'updatedAt': self.updatedAt,
         }
     
     # class methods 

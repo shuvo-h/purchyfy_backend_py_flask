@@ -17,6 +17,10 @@ class CategoryModel(db.Model):
 
     title = db.Column(db.String(255),nullable=False)
 
+    createdAt = db.Column(db.DateTime, default=datetime.utcnow)
+    updatedAt = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+
     def __init__(self,shop_id,title) :
         self.shop_id = shop_id
         self.title = title
@@ -30,7 +34,8 @@ class CategoryModel(db.Model):
             "id": self.id,
             "shop_id": self.shop_id,
             "title": self.title,
-            # "shop": shop_info
+            'createdAt': self.createdAt,
+            'updatedAt': self.updatedAt,
         }
         
         return category_dict

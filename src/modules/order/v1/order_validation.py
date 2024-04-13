@@ -14,33 +14,38 @@ class ContactSchema(Schema):
         error_messages=mrslwErrOptions("phone", nullable=False)
     )
 
-class OrderCreateValidationSchema(Schema):
-    shop_id = fields.Int(
-        required=True,
-        error_messages=mrslwErrOptions('shop_id')
-    )
+
+class OrderItemSchema(Schema):
     catalogue_id = fields.Int(
         required=True,
-        error_messages=mrslwErrOptions('catalogue_id')
+        error_messages=mrslwErrOptions("catalogue_id", nullable=False)
     )
     price = fields.Float(
-        required=True, 
+        required=True,
         validate=validate.Range(min=0.01),
         error_messages=mrslwErrOptions("price", nullable=False)
     )
     quantity = fields.Int(
-        required=True, 
+        required=True,
         validate=validate.Range(min=1),
         error_messages=mrslwErrOptions("quantity", nullable=False)
     )
+
+class OrderCreateValidationSchema(Schema):
+    shop_id = fields.Int(
+        required=True,
+        error_messages=mrslwErrOptions('shop_id', nullable=False)
+    )
     total_price = fields.Float(
-        required=True, 
+        required=True,
         validate=validate.Range(min=0.01),
         error_messages=mrslwErrOptions("total_price", nullable=False)
     )
-    inventory = fields.Int(
-        required=True, 
-        error_messages=mrslwErrOptions("inventory", nullable=False)
+    order_items = fields.List(
+        fields.Nested(OrderItemSchema),
+        required=True,
+        validate=validate.Length(min=1),
+        error_messages=mrslwErrOptions("order_items", nullable=False)
     )
     contact = fields.Nested(
         ContactSchema,

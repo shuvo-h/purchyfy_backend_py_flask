@@ -37,7 +37,9 @@ class CatalogueModel(db.Model):
             "title":self.title,
             "price":self.price,
             "inventory":self.inventory,
-            "category": self.category.to_dict()
+            "category": self.category.to_dict(),
+            'createdAt': self.createdAt,
+            'updatedAt': self.updatedAt,
         }
 
      # class methods 
