@@ -1,7 +1,6 @@
-from flask import Blueprint
+from flask import Blueprint, request
 from . import shop_controller
 from src.decorators.authDecorators import authCheck
-from flask import request
 from src.decorators.bodyValidator import validate_body
 from . import shop_validator
 from src.utils import db_helpers
@@ -12,8 +11,16 @@ shop_bp = Blueprint('marchant_v1',__name__)
 @shop_bp.post("/")
 @validate_body(shop_validator.ShopCreateValidationSchema())
 @authCheck(['admin', 'user'])  # decorator methods
-def createMarchant(parsedBody):
+def createShop(parsedBody):
     return shop_controller.create_shop(request.user['id'],parsedBody)
+
+# get shops 
+@shop_bp.get("/")
+@authCheck(['admin', 'user'])  # decorator methods
+def getShops():
+    queries = db_helpers.pickToDict(request.args,['searchTerm','shop_name','address'])
+    paginationInfo = db_helpers.pickToDict(request.args,["page","per_page","sort_order","sort_by"])
+    return shop_controller.getShops(queries,paginationInfo)
 
 
 # get orders by shop_id 

@@ -8,12 +8,23 @@ def pickToDict(args,pickList):
 
 # get paginated info 
 def getPaginationTupple(pageQuery):
-    page = int(pageQuery.get("page")) or 1
-    per_page = int(pageQuery.get("per_page")) or 10
+    page = int(pageQuery.get("page","1"))
+    per_page = int(pageQuery.get("per_page","10"))
     count = True
-    sort_order = pageQuery.get('sort_order') or "desc"
-    sort_by =  pageQuery.get('sort_by') or "createdAt"
+    sort_order = pageQuery.get('sort_order', "desc")
+    sort_by =  pageQuery.get('sort_by',"createdAt") 
     return page, per_page, count, sort_order, sort_by # return tupple
+
+
+# QueryBuilder helpers 
+# listOfFieldValues, rest = dictToPositionalList(queryDict={},fieldsToBeList=["maxPrice","minPrice"])
+def dictToPositionalList(dictToBeExtracted={},fieldsToBeListed=[]):
+    listOfFieldValues = [dictToBeExtracted.get(fieldName) for fieldName in fieldsToBeListed]
+    restFields = {k:v for k,v in dictToBeExtracted.items() if k not in fieldsToBeListed}
+    
+    return listOfFieldValues, restFields 
+
+
 
 def to_meta_dict(paginationQuery,sort_order=None,sort_by=None):
     return {
